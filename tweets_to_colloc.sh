@@ -7,4 +7,5 @@ bash -c "\
 ./parser_run.sh /dev/stdin |\
   tee $1.parsed |\
 ./collocations.py |\
-  sort > $1.colloc"
+  sort |\
+  uniq -c > $1.colloc"
