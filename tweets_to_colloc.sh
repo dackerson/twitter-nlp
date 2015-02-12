@@ -7,5 +7,6 @@ bash -c "\
 ./parser_run.sh /dev/stdin |\
   tee $1.parsed |\
 ./collocations.py |\
+  grep -x '[[:alnum:][:space:]]' |\
   sort |\
   uniq -c > $1.colloc"
