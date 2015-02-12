@@ -4,6 +4,7 @@
 
 import json
 import sys
+import nltk
 
 conll_fields = {
     "ID": 0,
@@ -17,6 +18,8 @@ conll_fields = {
 }
 
 parse = []
+my_lemmatizer = nltk.stem.WordNetLemmatizer()
+
 for line in sys.stdin:
     if line != "\n":
         parse.append(line.split('\t'))
@@ -29,6 +32,11 @@ for line in sys.stdin:
                     if head_row[conll_fields["CPOSTAG"]] == 'V' or head_row[conll_fields["POSTAG"]] == 'V':
                         verb_form = head_row[conll_fields["FORM"]]
                         noun_form = row[conll_fields["FORM"]]
+
+                        # Lemmatize the word forms first
+                        verb_form = my_lemmatizer.lemmatize(verb_form, 'v')
+                        noun_form = my_lemmatizer.lemmatize(noun_form, 'n')
+
                         print("%s %s" % (verb_form, noun_form))
                         print(verb_form)
                         print(noun_form)
