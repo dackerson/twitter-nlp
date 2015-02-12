@@ -2,8 +2,8 @@
 # Author: David Ackerson
 
 bash -c "\
-  cat -f $1 |\
+  cat $1 |\
 ./collocations.py |\
-  grep -x '[[:alnum:][:space:]]' |\
+  grep -x '[[:alnum:][:space:]]\+' |\
   sort |\
   uniq -c > $1.colloc"
